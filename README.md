@@ -8,6 +8,9 @@
  - [Click here for A* Algorithm( ).](https://github.com/rakshith111/VTU-AIML-lab/blob/main/programs/1_aStar.py) 
 ### 2. Implement AO* Search algorithm.
  - [Click here for AO* Algorithm.](https://github.com/rakshith111/VTU-AIML-lab/blob/main/programs/2_AOStar.py) 
+## CHECK OUT GRAPH VISUALIZER 
+ - [Click here for AO* Algorithm.](https://github.com/rakshith111/VTU-AIML-lab/blob/main/Graph%20Visualizer/graph%20visualizer%20.py) 
+ - Be sure to install requirements using `pip install -r requirements` after chaning directory to Graph Visualizer
 ### 3. Implement candidate Elimination algorithm.
  - [Click here for Candidate Elimination Algorithm.](https://github.com/rakshith111/VTU-AIML-lab/blob/main/programs/3_CandidateElimination.py) 
 ### 4. Implement ID3 algorithm.
