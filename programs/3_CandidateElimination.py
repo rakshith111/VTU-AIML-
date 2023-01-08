@@ -7,10 +7,10 @@ from csv import reader
 with open("CandidateElimination.csv") as f:
     csv_file = reader(f)
     data = list(csv_file)
-    data=data[1:] # ignore the first row
+    data = data[1:]  # ignore the first row
 
     specific_hyp = data[0][:-1]
-    row_size=len(specific_hyp)
+    row_size = len(specific_hyp)
     general_hyp = [['?' for i in range(row_size)] for j in range(row_size)]
 
     print(data)
@@ -30,7 +30,7 @@ with open("CandidateElimination.csv") as f:
         print("\nSteps of Candidate Elimination Algorithm", data.index(row) + 1)
         print(specific_hyp)
         print(general_hyp)
-    t=['?', '?', '?', '?', '?', '?']
+    t = ['?', '?', '?', '?', '?', '?']
     while t in general_hyp:
         general_hyp.remove(t)
 

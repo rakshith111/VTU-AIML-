@@ -17,8 +17,9 @@ Xtrain, Xtest, ytrain, ytest = train_test_split(X, y)
 count_v = CountVectorizer()
 V_Xtrain = count_v.fit_transform(Xtrain)
 V_Xtest = count_v.transform(Xtest)
-#Feature names
-modifieddf = pd.DataFrame(V_Xtrain.toarray(), columns=count_v.get_feature_names_out())
+# Feature names
+modifieddf = pd.DataFrame(
+    V_Xtrain.toarray(), columns=count_v.get_feature_names_out())
 print(modifieddf[0:3])
 # create a Multinomial Naive Bayes model and fit it to the training data
 model = MultinomialNB()
@@ -26,7 +27,7 @@ model.fit(V_Xtrain, ytrain)
 pred = model.predict(V_Xtest)
 # print the results
 for doc, p in zip(Xtest, pred):
-        print(doc,"->",'pos' if p  else 'neg')
+    print(doc, "->", 'pos' if p else 'neg')
 # print the accuracy metrics
 print('Accuracy Metrics: \n', classification_report(ytest, pred))
 print('Confusion Matrix: \n', confusion_matrix(ytest, pred))

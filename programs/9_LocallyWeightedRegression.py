@@ -20,7 +20,7 @@ def lowess(x, y, f, iterations):
     A is a 2x2 matrix that is constructed from the weights w[:, i] at each point x[i], and b is a vector of length 2 that is constructed from the weighted sums of y and y * x
     beta  is a vector of regression coefficients that is being solved for, and A and b are the matrices and vectors of known quantities. 
     '''
-    n = len(x) 
+    n = len(x)
     r = int(ceil(f * n))
     h = [np.sort(np.abs(x - x[i]))[r] for i in range(n)]
     w = np.clip(np.abs((x[:, None] - x[None, :]) / h), 0.0, 1.0)

@@ -1,9 +1,3 @@
-'''
-A0* algorithm
-
-'''
-import copy
-
 
 class AOStar():
     # instantiate graph object with graph topology, heuristic values, start node
@@ -52,7 +46,6 @@ class AOStar():
 
         print("-----------------------------------------------------------------------------------------")
         print("PROCESSING NODE :", v)
-        print(self.status, self.status.get(v, 0))
         # if status node v >= 0, compute Minimum Cost nodes of v
         if self.status.get(v, 0) >= 0:
             minimumCost, childNodeList = self.mincost(v)
@@ -70,14 +63,13 @@ class AOStar():
                 self.status[v] = -1
                 self.result[v] = childNodeList
             # if the current node is not the start node, call the AO* algorithm for the parent node
-            if v != self.start:  
+            if v != self.start:
                 self.aostar(self.parent[v], True)
-        
+    
             if backTracking == False:  # check the current call is not for backtracking
                 for childNode in childNodeList:  # for each Minimum Cost child node
                     self.status[childNode] = 0
                     self.aostar(childNode, False)
-
 
 h1 = {'A': 1, 'B': 6, 'C': 2, 'D': 12, 'E': 2,
       'F': 1, 'G': 5, 'H': 7, 'I': 7, 'J': 1}
@@ -88,11 +80,5 @@ graph1 = {
     'D': [[('E'), ('F')]],
     'G': [[('I')]]
 }
-print("GRAPH TOPOLOGY IS:")
-print(graph1)
-print("-----------------------------------------------------------------------------------------")
-print("HEURISTIC VALUES OF THE NODES ARE:")
-print(h1)
-print("-----------------------------------------------------------------------------------------")
 p = (AOStar(graph1, h1, 'A'))
 p.applyAOStar()
