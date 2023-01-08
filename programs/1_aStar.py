@@ -2,13 +2,12 @@
 Implement A* Search algorithm.
 '''
 from queue import PriorityQueue
-pk = PriorityQueue()
 
 
 def a_star(graph, H_dist, start, end):
     # Set up data structures
     memory = {start: 0}
-    prev = {}
+    prev = dict()
     queue = PriorityQueue()
     queue.put((0, start))
     # Loop until the queue is empty
@@ -19,10 +18,10 @@ def a_star(graph, H_dist, start, end):
         if current[1] == end:
             # Generate the path by following the prev pointers
             path = []
-            curr = current[1]
-            while curr != start:
-                path.append(curr)
-                curr = prev[curr]
+            temp = current[1]
+            while temp != start:
+                path.append(temp)
+                temp = prev[temp]
             path.append(start)
             return path[::-1]
 
@@ -31,8 +30,8 @@ def a_star(graph, H_dist, start, end):
             total_cost = memory[current[1]] + cost
             if neighbor not in memory or total_cost < memory[neighbor]:
                 memory[neighbor] = total_cost
-                priority = total_cost + H_dist.get(neighbor)
                 prev[neighbor] = current[1]
+                priority = total_cost + H_dist.get(neighbor)
                 queue.put((priority, neighbor))
 
     print("No path found")

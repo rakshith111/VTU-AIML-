@@ -8,7 +8,7 @@ from sklearn.cluster import KMeans
 from sklearn.mixture import GaussianMixture
 
 from sklearn.datasets import load_iris
-from sklearn import preprocessing
+from sklearn.preprocessing import StandardScaler
 
 dataset = load_iris()
 
@@ -32,21 +32,21 @@ plt.title('Real')
 # K-PLOT
 model = KMeans(n_clusters=3)
 model.fit(X)
-predY = model.predict(dataset.data)
+predY = model.predict(X)
 plt.subplot(1, 3, 2)
 plt.scatter(X[2], X[3], c=colormap[predY])
 plt.title('KMeans')
 
 # GMM PLOT
-scaler = preprocessing.StandardScaler()
+scaler = StandardScaler()
 scaler.fit(X)
 xsa = scaler.transform(X)
 xs = pd.DataFrame(xsa)
 gmm = GaussianMixture(n_components=3)
 gmm.fit(xs)
-gmmptrf = gmm.predict(xs)
+predgmm = gmm.predict(xs)
 plt.subplot(1, 3, 3)
-plt.scatter(X[2], X[3], c=colormap[gmmptrf])
+plt.scatter(X[2], X[3], c=colormap[predgmm])
 plt.title('GMM Classification')
 
 

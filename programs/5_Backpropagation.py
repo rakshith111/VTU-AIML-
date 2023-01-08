@@ -1,56 +1,56 @@
-"""Build an Artificial Neural Network by implementing the Backpropagation algorithm and test the same using
-appropriate data sets """
-
 import numpy as np
-
 X = np.array(([2, 9], [1, 5], [3, 6]), dtype=float)
-y = np.array(([92], [86], [89]), dtype=float)
+Y = np.array(([92], [85], [89]), dtype=float)
 
-# Scale units
-X = X / np.amax(X, axis=0)
-y = y / 100
+# Normalize the inputs
+X = X/np.amax(X, axis=0)
+Y = Y / 100
+
+# set number of layers
+input_layer = 2
+hidden_layer = 3
+output_layer = 1
+
+# iteratins and learning rate
+epochs = 5000
+learning_rate = 0.5
+
+# weihts and bias
+w1 = np.random.uniform(size=(input_layer, hidden_layer))
+b1 = np.random.uniform(size=(1, hidden_layer))
+w2 = np.random.uniform(size=(hidden_layer, output_layer))
+b2 = np.random.uniform(size=(1, output_layer))
 
 
-# Sigmoid Function
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
-# Derivative of Sigmoid Function
+
 def derivative_sigmoid(x):
-    return sigmoid(x) * (1 - sigmoid(x))
+    return x * (1 - x)
 
 
-epoch = 17000
-lr = 0.1
-ip_layer = 2
-hidn_layer = 3
-weight = np.random.uniform(size=(ip_layer, hidn_layer))
-bias = np.random.uniform(size=(1, hidn_layer))
+# train the model
+for i in range(epochs):
+    # forward propagation
+    # layer 1 to layer hidden
+    hidden_out = np.dot(X, w1) + b1
+    out1 = sigmoid(hidden_out)
+    # Hidden layer to output layer
+    final_out = np.dot(out1, w2) + b2
+    out2 = sigmoid(final_out)
 
-for iterations in range(epoch):
-    inp = X
-    weighted_sum = np.dot(inp, weight)+bias
-    final_output = sigmoid(weighted_sum)
+    # backpropagation
+    # last layer to hidden layer
+    error_output = Y - out2
+    delta_last = derivative_sigmoid(out2) * error_output
 
-    error = final_output-y
-    second_der = derivative_sigmoid(final_output)
-    derivative = error*second_der
+    error_hidden = np.dot(delta_last, w2.T)
+    delta_hidden = derivative_sigmoid(out1) * error_hidden
 
-    t_inp = inp.T  # transpose of input
-    final_d = np.dot(inp.T, derivative)
-    weight = weight-lr*final_d
+    w1 += np.dot(X.T, delta_hidden) * learning_rate
+    w2 += np.dot(out1.T, delta_last) * learning_rate
 
-    for updates in derivative:
-        bias = bias-lr*updates
-op_layer = np.mean(final_output, axis=1)
 print("Input: \n" + str(X))
-print("Actual Output: \n" + str(y))
-print("Predicted Output: \n", op_layer)
-print("Error: \n" + str(np.mean(np.square(y - op_layer[0]))))
-
-# CUSTOM INPUT
-pred = np.array([0.66666667, 1.])
-# pred = pred/np.amax(X, axis=0)
-result = np.dot(pred, weight)+bias
-result = sigmoid(result)
-print("Predicted result for [2,9] is: ", result[0][0])
+print("Actual Output: \n" + str(Y))
+print("Predcited Output: \n", out2)

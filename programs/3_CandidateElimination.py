@@ -2,16 +2,18 @@
 candidate-Elimination algorithm output a description of the set of all hypotheses consistent with the training
 examples """
 
-import csv
+from csv import reader
 
 with open("CandidateElimination.csv") as f:
-    csv_file = csv.reader(f)
+    csv_file = reader(f)
     data = list(csv_file)
+    data=data[1:] # ignore the first row
 
-    specific_hyp = data[1][:-1]
+    specific_hyp = data[0][:-1]
     row_size=len(specific_hyp)
     general_hyp = [['?' for i in range(row_size)] for j in range(row_size)]
 
+    print(data)
     for row in data:
         if row[-1] == "Yes":
             for item in range(row_size):
