@@ -46,8 +46,9 @@ class AOStar():
 
         print("-----------------------------------------------------------------------------------------")
         print("PROCESSING NODE :", v)
+        print("HEURISTIC VALUES :", self.Heruistics)
         # if status node v >= 0, compute Minimum Cost nodes of v
-        if self.status.get(v, 0) >= 0:
+        if self.status.get(v, 0) != -1:
             minimumCost, childNodeList = self.mincost(v)
             self.Heruistics[v] = minimumCost
             self.status[v] = len(childNodeList)
@@ -70,6 +71,8 @@ class AOStar():
                 for childNode in childNodeList:  # for each Minimum Cost child node
                     self.status[childNode] = 0
                     self.aostar(childNode, False)
+
+
 
 h1 = {'A': 1, 'B': 6, 'C': 2, 'D': 12, 'E': 2,
       'F': 1, 'G': 5, 'H': 7, 'I': 7, 'J': 1}

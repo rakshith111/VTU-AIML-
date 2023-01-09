@@ -6,14 +6,14 @@ from queue import PriorityQueue
 
 def a_star(graph, H_dist, start, end):
     # Set up data structures
-    memory = {start: 0}
     prev = dict()
     queue = PriorityQueue()
     queue.put((0, start))
+    memory = {start: 0}
     # Loop until the queue is empty
     while not queue.empty():
         current = queue.get()
-
+        # Current is a tuple of (priority, node)
         # Check if we've reached the end node
         if current[1] == end:
             # Generate the path by following the prev pointers
@@ -52,7 +52,7 @@ Graph_nodes = {
     'E': [('C', 2), ('B', 3)]
 }
 
-print(a_star(Graph_nodes, 'A', 'C'))
+print(a_star(Graph_nodes, H_dist,'A', 'C'))
 H_dist = {
     'A': 10,
     'B': 4,
@@ -68,4 +68,4 @@ Graph_nodes = {
     'D': [('F', 1)],
     'E': [('F', 1)]
 }
-print(a_star(Graph_nodes, 'A', 'F'))
+print(a_star(Graph_nodes,H_dist, 'A', 'F'))
